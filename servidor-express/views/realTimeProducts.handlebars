@@ -1,0 +1,58 @@
+<h1>Productos en Tiempo Real</h1>
+<ul id="product-list"></ul>
+
+<h2>Agregar Producto</h2>
+<form id="add-product-form">
+    <input type="text" id="title" placeholder="Título" required>
+    <input type="text" id="description" placeholder="Descripción" required>
+    <input type="number" id="price" placeholder="Precio" required>
+    <button type="submit">Agregar</button>
+</form>
+
+<h2>Eliminar Producto</h2>
+<form id="delete-product-form">
+    <input type="number" id="product-id" placeholder="ID del Producto" required>
+    <button type="submit">Eliminar</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    // Elementos del DOM
+    const productList = document.getElementById('product-list');
+    const addProductForm = document.getElementById('add-product-form');
+    const deleteProductForm = document.getElementById('delete-product-form');
+
+    // Renderizar productos
+    socket.on('productList', (products) => {
+        productList.innerHTML = '';
+        products.forEach(product => {
+            const li = document.createElement('li');
+            li.textContent = `${product.id}: ${product.title} - ${product.description} ($${product.price})`;
+            productList.appendChild(li);
+        });
+    });
+
+    // Agregar producto
+    addProductForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = parseFloat(document.getElementById('price').value);
+
+        const newProduct = { id: Date.now(), title, description, price };
+        socket.emit('addProduct', newProduct);
+
+        addProductForm.reset();
+    });
+
+    // Eliminar producto
+    deleteProductForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const productId = parseInt(document.getElementById('product-id').value);
+        socket.emit('deleteProduct', productId);
+
+        deleteProductForm.reset();
+    });
+</script>
