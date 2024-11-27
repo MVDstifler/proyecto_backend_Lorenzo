@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos y Carritos</title>
+    <!-- Enlace al archivo de estilos -->
+    <link rel="stylesheet" href="/servidor-express/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Productos y Carritos</h1>
+
+        <!-- Sección de productos -->
+        <section>
+            <h2>Productos</h2>
+            <form id="product-form">
+                <input type="text" id="title" placeholder="Título del producto" required>
+                <input type="text" id="description" placeholder="Descripción" required>
+                <input type="text" id="code" placeholder="Código" required>
+                <input type="number" id="price" placeholder="Precio" required>
+                <input type="number" id="stock" placeholder="Stock" required>
+                <input type="text" id="category" placeholder="Categoría" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    <!-- Aquí se llenarán los productos dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Sección de carritos -->
+        <section>
+            <h2>Carritos</h2>
+            <form id="cart-form">
+                <button type="submit">Crear Nuevo Carrito</button>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID del Carrito</th>
+                        <th>Productos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-list">
+                    <!-- Aquí se llenarán los carritos dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Script para manejar mensajes -->
+    <script src="/js/messages.js"></script>
+
+    <script>
+        // Ejemplo de interacción con los formularios y mensajes
+        document.getElementById('product-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Obtener datos del formulario
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const code = document.getElementById('code').value;
+            const price = document.getElementById('price').value;
+            const stock = document.getElementById('stock').value;
+            const category = document.getElementById('category').value;
+
+            // Simular el guardado del producto
+            if (title && description && code && price && stock && category) {
+                showSuccessMessage("Producto agregado con éxito.");
+                // Aquí podrías enviar los datos al servidor vía fetch()
+                console.log({ title, description, code, price, stock, category });
+            } else {
+                showErrorMessage("Por favor completa todos los campos.");
+            }
+
+            // Limpiar formulario
+            event.target.reset();
+        });
+
+        document.getElementById('cart-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Simular la creación de un carrito
+            showSuccessMessage("Carrito creado con éxito.");
+            // Aquí podrías enviar una solicitud POST al servidor para crear un carrito
+        });
+    </script>
+</body>
+</html>

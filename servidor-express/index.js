@@ -30,7 +30,7 @@ app.use('/', viewsRouter);
 
 // Crear servidor HTTP con websockets
 const server = app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${27017}`);
 });
 const io = new Server(server);
 

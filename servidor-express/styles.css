@@ -83,3 +83,49 @@ input:focus, select:focus, textarea:focus {
     border-color: #007bff;
     outline: none;
 }
+
+/* Estilos para mensajes */
+.message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+}
+
+/* Tipos de mensajes */
+.message.success {
+    background-color: #28a745; /* Verde */
+}
+
+.message.error {
+    background-color: #dc3545; /* Rojo */
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
