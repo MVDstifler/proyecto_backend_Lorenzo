@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express-handlebars": "^8.0.1",
+    "socket.io": "^4.8.1"
+  }
+}
