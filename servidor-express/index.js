@@ -1,15 +1,20 @@
+require('dotenv').config();
+
+
 const express = require('express');
 const { Server } = require('socket.io'); // Importar socket.io
 const path = require('path');
 const handlebars = require('express-handlebars');
+const connectDB = require('./db'); // Importar la conexión a MongoDB
 
 const app = express();
 const PORT = 8080;
 
+// Conectar a MongoDB
+connectDB();
 
 // Configurar tabla de estilos
 app.use(express.static('public'));
-
 
 // Configurar Handlebars
 app.engine('handlebars', handlebars());
@@ -30,7 +35,7 @@ app.use('/', viewsRouter);
 
 // Crear servidor HTTP con websockets
 const server = app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${27017}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 const io = new Server(server);
 
