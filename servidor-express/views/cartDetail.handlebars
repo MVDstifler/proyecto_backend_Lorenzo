@@ -1,0 +1,24 @@
+<!-- cartDetail.handlebars -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Carrito</title>
+</head>
+<body>
+    <h1>Carrito ID: {{cartId}}</h1>
+
+    <!-- Lista de productos en el carrito -->
+    <div>
+        {{#each products}}
+        <div class="product">
+            <h2>{{this.productDetails.title}}</h2>
+            <p>Precio: ${{this.productDetails.price}}</p>
+            <p>Cantidad: {{this.quantity}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <a href="/products">Volver a la lista de productos</a>
+</body>
+</html>

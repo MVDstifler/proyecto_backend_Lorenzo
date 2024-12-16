@@ -1,9 +1,55 @@
-<h1>Lista de Productos</h1>
-<ul>
-    {{#each products}}
-        <li>
-            <strong>{{title}}</strong> - {{description}} (${{price}})
-        </li>
-    {{/each}}
-</ul>
-<a href="/realtimeproducts">Ir a productos en tiempo real</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    
+    <!-- Formulario de búsqueda -->
+    <form action="/products" method="get">
+        <input type="text" name="query" placeholder="Buscar productos" value="{{query}}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <!-- Filtro y ordenamiento -->
+    <form action="/products" method="get">
+        <select name="sort">
+            <option value="asc" {{#if (eq sort "asc")}}selected{{/if}}>Orden Ascendente</option>
+            <option value="desc" {{#if (eq sort "desc")}}selected{{/if}}>Orden Descendente</option>
+        </select>
+        <button type="submit">Ordenar</button>
+    </form>
+
+    <!-- Mostrar productos -->
+    <div>
+        {{#each products}}
+            <div>
+                <h3>{{this.title}}</h3>
+                <p>Precio: ${{this.price}}</p>
+                <p>Categoría: {{this.category}}</p>
+                <a href="/products/{{this.id}}">Ver Detalles</a>
+                <form action="/carts/{{cartId}}/products/{{this.id}}" method="post">
+                    <button type="submit">Agregar al carrito</button>
+                </form>
+            </div>
+        {{else}}
+            <p>No se encontraron productos.</p>
+        {{/each}}
+    </div>
+
+    <!-- Paginación -->
+    <div>
+        {{#if prevPage}}
+            <a href="/products?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}">Página Anterior</a>
+        {{/if}}
+        <span>Página {{currentPage}} de {{totalPages}}</span>
+        {{#if nextPage}}
+            <a href="/products?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}">Página Siguiente</a>
+        {{/if}}
+    </div>
+</body>
+</html>

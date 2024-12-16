@@ -1,0 +1,24 @@
+<!-- productDetail.handlebars -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Producto</title>
+</head>
+<body>
+    <h1>{{product.title}}</h1>
+    <p><strong>Descripción:</strong> {{product.description}}</p>
+    <p><strong>Precio:</strong> ${{product.price}}</p>
+    <p><strong>Categoría:</strong> {{product.category}}</p>
+    <p><strong>Stock:</strong> {{product.stock}}</p>
+    <p><strong>Estado:</strong> {{#if product.status}}Disponible{{else}}No disponible{{/if}}</p>
+
+    <!-- Botón para agregar al carrito -->
+    <form action="/api/carts/{{cartId}}/products/{{product.id}}" method="post">
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Agregar al carrito</button>
+    </form>
+
+    <a href="/products">Volver a la lista de productos</a>
+</body>
+</html>
