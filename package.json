@@ -2,6 +2,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express-handlebars": "^8.0.1",
+    "mongoose-paginate-v2": "^1.8.5",
     "socket.io": "^4.8.1"
   }
 }
